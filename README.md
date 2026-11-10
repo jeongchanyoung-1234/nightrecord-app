@@ -18,16 +18,16 @@
 </p>
 
 <p align="center">
-  <img src="https://nightrecord.app/assets/img/wylder.webp" height="56" alt="Wylder" />
-  <img src="https://nightrecord.app/assets/img/guardian.webp" height="56" alt="Guardian" />
-  <img src="https://nightrecord.app/assets/img/ironeye.webp" height="56" alt="Ironeye" />
-  <img src="https://nightrecord.app/assets/img/dutchess.webp" height="56" alt="Duchess" />
-  <img src="https://nightrecord.app/assets/img/raider.webp" height="56" alt="Raider" />
-  <img src="https://nightrecord.app/assets/img/revenant.webp" height="56" alt="Revenant" />
-  <img src="https://nightrecord.app/assets/img/recluse.webp" height="56" alt="Recluse" />
-  <img src="https://nightrecord.app/assets/img/executor.webp" height="56" alt="Executor" />
-  <img src="https://nightrecord.app/assets/img/scholar.webp" height="56" alt="Scholar" />
-  <img src="https://nightrecord.app/assets/img/undertaker.webp" height="56" alt="Undertaker" />
+  <img src="https://raw.githubusercontent.com/jeongchanyoung-1234/nightrecord-app/main/assets/img/wylder.webp" height="56" alt="Wylder" />
+  <img src="https://raw.githubusercontent.com/jeongchanyoung-1234/nightrecord-app/main/assets/img/guardian.webp" height="56" alt="Guardian" />
+  <img src="https://raw.githubusercontent.com/jeongchanyoung-1234/nightrecord-app/main/assets/img/ironeye.webp" height="56" alt="Ironeye" />
+  <img src="https://raw.githubusercontent.com/jeongchanyoung-1234/nightrecord-app/main/assets/img/dutchess.webp" height="56" alt="Duchess" />
+  <img src="https://raw.githubusercontent.com/jeongchanyoung-1234/nightrecord-app/main/assets/img/raider.webp" height="56" alt="Raider" />
+  <img src="https://raw.githubusercontent.com/jeongchanyoung-1234/nightrecord-app/main/assets/img/revenant.webp" height="56" alt="Revenant" />
+  <img src="https://raw.githubusercontent.com/jeongchanyoung-1234/nightrecord-app/main/assets/img/recluse.webp" height="56" alt="Recluse" />
+  <img src="https://raw.githubusercontent.com/jeongchanyoung-1234/nightrecord-app/main/assets/img/executor.webp" height="56" alt="Executor" />
+  <img src="https://raw.githubusercontent.com/jeongchanyoung-1234/nightrecord-app/main/assets/img/scholar.webp" height="56" alt="Scholar" />
+  <img src="https://raw.githubusercontent.com/jeongchanyoung-1234/nightrecord-app/main/assets/img/undertaker.webp" height="56" alt="Undertaker" />
 </p>
 
 ---

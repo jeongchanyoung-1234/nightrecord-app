@@ -1479,6 +1479,10 @@ class Handler(BaseHTTPRequestHandler):
             mime = 'text/plain; charset=utf-8'
         elif candidate.suffix == '.js':
             mime = 'text/javascript; charset=utf-8'
+        elif candidate.suffix == '.webp':
+            mime = 'image/webp'
+        elif candidate.suffix == '.svg':
+            mime = 'image/svg+xml'
         elif mime == 'text/html' or candidate.suffix in {'.html', '.htm'}:
             mime = 'text/html; charset=utf-8'
         self.send_response(200)
