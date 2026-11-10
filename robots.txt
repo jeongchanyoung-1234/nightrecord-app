@@ -1,0 +1,33 @@
+# https://nightrecord.app
+User-agent: *
+Allow: /
+Allow: /relics.html
+Allow: /assets/
+
+# 계정·관리·API는 색인 제외
+Disallow: /api/
+Disallow: /admin.html
+Disallow: /login.html
+Disallow: /signup.html
+Disallow: /me.html
+Disallow: /reset.html
+Disallow: /data/
+Disallow: /server/
+Disallow: /deploy/
+
+# 네이버 Yeti
+User-agent: Yeti
+Allow: /
+Allow: /relics.html
+Allow: /assets/
+Disallow: /api/
+Disallow: /admin.html
+Disallow: /login.html
+Disallow: /signup.html
+Disallow: /me.html
+Disallow: /reset.html
+Disallow: /data/
+Disallow: /server/
+Disallow: /deploy/
+
+Sitemap: https://nightrecord.app/sitemap.xml

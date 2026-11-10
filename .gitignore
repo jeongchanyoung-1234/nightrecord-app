@@ -1,0 +1,80 @@
+# --- 비밀 / 자격증명 ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+**/secrets/**
+
+# --- 런타임 DB · 사용자 전적 (루트 data/ 만) ---
+/data/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.db
+
+# --- 세이브 · 개인 플레이 데이터 ---
+*.sl2
+*.sl2.bak
+NR0000.sl2
+**/relic-inventory*.json
+
+# --- 관리/운영 전용 ---
+admin.html
+assets/admin.js
+
+# --- 사이트 강점(역설계·추천 엔진·가중치) ---
+DATA-AUDIT.md
+docs/
+scripts/generate-build-guide-docx.py
+*.docx
+assets/parser.js
+assets/relics.js
+assets/data/relic-builds.json
+assets/data/relic-score-rules.json
+assets/data/relic-effect-meta.json
+assets/data/relic-unique.json
+# Relics Pro 등에서 추출한 게임 원문/덤프성 자료
+assets/data/relic-ko.json
+assets/data/relic-effects.json
+assets/data/relic-effects-*.json
+assets/data/relic-locale-*.json
+
+# --- 치트/외부 툴 덤프 · 대용량 바이너리 ---
+*.ct
+*.exe
+*.pak
+*.asar
+relicsapp/
+Nightreign*
+nightreign*
+*.zip
+
+# --- 검색엔진 확인 파일(원하면 공개 가능; 기본은 로컬 유지) ---
+naver*.html
+google*.html
+
+# --- Python / 로컬 환경 ---
+.venv/
+.venv-*/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- 에디터 · OS ---
+.cursor/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*~
+
+# --- 로그 · 임시 ---
+*.log
+tmp/
+temp/
+.cache/

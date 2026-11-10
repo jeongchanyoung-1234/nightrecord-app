@@ -1,0 +1,20 @@
+services:
+  nightrecord:
+    image: python:3.12-slim
+    container_name: nightrecord
+    working_dir: /app
+    command: ["python3", "server/app.py"]
+    env_file:
+      - .env
+    environment:
+      NIGHTRECORD_HOST: "0.0.0.0"
+      NIGHTRECORD_PORT: "8080"
+      NIGHTRECORD_DB: "/app/data/nightrecord.sqlite"
+    volumes:
+      - ./:/app
+    ports:
+      - "127.0.0.1:8080:8080"
+    restart: unless-stopped
+    # Cursor/SSH 세션과 무관하게 유지
+    stdin_open: false
+    tty: false

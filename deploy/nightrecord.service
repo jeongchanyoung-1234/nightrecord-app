@@ -1,0 +1,27 @@
+[Unit]
+Description=Nightrecord (밤의 기록) web app
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=jcy1996
+Group=jcy1996
+WorkingDirectory=/home/jcy1996/nightrecord
+EnvironmentFile=-/home/jcy1996/nightrecord/.env
+Environment=NIGHTRECORD_HOST=127.0.0.1
+Environment=NIGHTRECORD_PORT=8080
+Environment=NIGHTRECORD_DB=/home/jcy1996/nightrecord/data/nightrecord.sqlite
+ExecStart=/usr/bin/python3 /home/jcy1996/nightrecord/server/app.py
+Restart=always
+RestartSec=3
+# Cursor/에이전트 세션과 분리
+KillMode=control-group
+TimeoutStopSec=20
+
+# 기본 보안 강화
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

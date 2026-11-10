@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko" data-i18n-title-key="relics.metaTitle">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>유물 조합기 — 밤의 기록</title>
+  <meta name="description" content="보유 유물로 Nightreign 직업·접시 조합을 추천합니다. 계정 주인만 사용할 수 있습니다." />
+  <link rel="canonical" href="https://nightrecord.app/relics.html" />
+  <meta name="robots" content="index,follow" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css?v=27" />
+</head>
+<body>
+  <div class="grain"></div>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="brand" href="./">
+        <span class="brand-mark">◈</span>
+        <span data-i18n="brand.name">밤의 기록</span>
+      </a>
+    </div>
+    <div class="topbar-center" aria-hidden="true"></div>
+    <nav class="account-nav topbar-right" aria-label="계정" data-i18n-aria="nav.account">
+      <a class="btn btn-ghost" href="./" data-i18n="nav.records">전적</a>
+      <a class="btn btn-ghost" id="myPageLink" href="me.html" hidden data-i18n="nav.mypage">마이페이지</a>
+      <a class="btn btn-ghost" id="loginLink" href="login.html" data-i18n="nav.login">로그인</a>
+      <button id="signOut" class="btn btn-ghost" type="button" hidden data-i18n="nav.logout">로그아웃</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="relics-page">
+      <div class="player-head">
+        <div>
+          <p class="eyebrow">RELIC LOADOUT</p>
+          <h2 data-i18n="relics.title">유물 조합기</h2>
+          <p class="muted" id="relicsOwnerNote" data-i18n="relics.note">계정 주인이 분석한 세이브의 보유 유물만으로 추천합니다.</p>
+        </div>
+      </div>
+
+      <article class="panel" id="relicsPanel">
+        <header class="panel-head panel-head-row">
+          <div>
+            <h3 data-i18n="relics.recommend">추천</h3>
+          </div>
+        </header>
+        <div class="relics-controls" id="relicsControls"></div>
+        <div class="relics-results" id="relicsResults"></div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-main">
+      <span data-i18n="footer.brand">밤의 기록 · NIGHTREIGN SAVE ANALYZER</span>
+      <span class="muted" data-i18n="footer.privacy">세이브는 브라우저에서만 처리됩니다.</span>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:jcy19960721@gmail.com" data-i18n="footer.contact">문의</a>
+      <a href="https://github.com/sponsors/jeongchanyoung-1234" target="_blank" rel="noopener noreferrer" data-i18n="footer.sponsor">개발자에게 커피 한 잔</a>
+      <div class="lang-switch" data-lang-switch></div>
+    </div>
+  </footer>
+
+  <script type="module" src="assets/relics-page.js?v=8"></script>
+</body>
+</html>

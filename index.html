@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ko" data-i18n-title-key="meta.title">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>밤의 기록 — ELDEN RING NIGHTREIGN 전적 분석</title>
+  <meta name="description" content="NR0000.sl2 세이브 파일을 브라우저에서 분석해 승률, 직업별 전적, 심도/일반 전적, 승률 추이를 보여주는 비공식 Nightreign 팬 도구." />
+  <link rel="canonical" href="https://nightrecord.app/" />
+  <meta name="robots" content="index,follow" />
+  <!-- 구글 서치콘솔 HTML 태그 확인 시 아래에 meta를 넣으세요. 파일 확인이면 google*.html을 루트에 두면 됩니다. -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css?v=30" />
+</head>
+<body>
+  <div class="grain"></div>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="brand" href="./">
+        <span class="brand-mark">◈</span>
+        <span data-i18n="brand.name">밤의 기록</span>
+      </a>
+    </div>
+    <form id="playerSearch" class="player-search" role="search">
+      <input id="playerQuery" type="search" maxlength="40" placeholder="캐릭터 검색  예: ashenone#TAG" data-i18n-placeholder="nav.searchPlaceholder" autocomplete="off" enterkeyhint="search" aria-autocomplete="list" aria-controls="searchSuggest" />
+      <div id="searchSuggest" class="search-suggest" role="listbox" hidden></div>
+      <button class="btn btn-solid" type="submit" data-i18n="nav.search">검색</button>
+    </form>
+    <nav class="account-nav topbar-right" aria-label="계정" data-i18n-aria="nav.account">
+      <a class="btn btn-relic-nav" id="relicsNavLink" href="/relics.html" hidden data-i18n="nav.relics">추천 유물 조합기</a>
+      <a class="btn btn-ghost" id="loginLink" href="login.html" data-i18n="nav.login">로그인</a>
+      <a class="btn btn-solid" id="signupLink" href="signup.html" data-i18n="nav.signup">회원가입</a>
+      <a class="btn btn-ghost" id="myPageLink" href="me.html" hidden data-i18n="nav.mypage">마이페이지</a>
+      <button id="signOut" class="btn btn-ghost" type="button" hidden data-i18n="nav.logout">로그아웃</button>
+    </nav>
+  </header>
+
+  <main>
+    <div id="searchResults" class="search-results" hidden></div>
+    <p id="accountMessage" class="muted account-status" role="status" aria-live="polite" hidden></p>
+    <section id="landing" class="landing">
+      <p class="eyebrow">ELDEN RING NIGHTREIGN</p>
+      <h1 data-i18n-html="landing.h1">당신의 밤은<br /><em>어떤 기록</em>을 남겼나</h1>
+      <p class="lede" data-i18n-html="landing.lede">
+        <code>NR0000.sl2</code> 세이브 파일을 올리면 승률, 직업별 전적, 심도/일반 전적,
+        보스별 전적과 함께한 플레이어, 연승과 승률 추이를 보여줍니다. 세이브에는 최근 100개만 남아도, 같은 계정을 다시 분석하면 이전에 쌓인 기록과 합쳐집니다.
+      </p>
+
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="세이브 파일 선택" data-i18n-aria="landing.dropAria">
+        <input type="file" id="fileInput" accept=".sl2,.co2" hidden />
+        <div class="dropzone-ring"></div>
+        <div class="dropzone-inner">
+          <div class="dropzone-icon">⌁</div>
+          <strong data-i18n="landing.dropStrong">세이브 파일을 끌어다 놓으세요</strong>
+          <span data-i18n-html="landing.dropHint">또는 클릭해서 <code>NR0000.sl2</code> 선택</span>
+        </div>
+      </div>
+
+      <div class="landing-actions">
+        <button class="btn btn-ghost" id="demoBtn" type="button" data-i18n="landing.demo">데모 데이터로 둘러보기</button>
+        <button class="btn btn-ghost" id="whereBtn" type="button" data-i18n="landing.where">세이브 파일 위치</button>
+      </div>
+
+      <div class="hint-box" id="whereBox" hidden>
+        <p data-i18n="landing.wherePath">Windows 기준 기본 경로입니다. %APPDATA%는 이미 AppData\Roaming을 가리킵니다.</p>
+        <pre>%APPDATA%\Nightreign\&lt;SteamID&gt;\NR0000.sl2</pre>
+        <pre>C:\Users\&lt;사용자&gt;\AppData\Roaming\Nightreign\&lt;SteamID&gt;\NR0000.sl2</pre>
+        <p class="muted" data-i18n="landing.whereNote">게임이 실행 중이면 클라우드 동기화 충돌을 막기 위해 종료한 뒤 복사하는 것을 권장합니다.</p>
+      </div>
+
+      <p class="privacy-line"><span class="dot"></span> <span data-i18n="landing.privacy">세이브 원본은 브라우저에서만 해독 · 누적 원정과 캐릭터 이름은 공개 전적에 저장</span></p>
+    </section>
+
+    <section id="status" class="status" hidden>
+      <div class="spinner"></div>
+      <p id="statusText" data-i18n="status.decrypting">세이브를 해독하는 중…</p>
+    </section>
+
+    <section id="error" class="error-panel" hidden>
+      <strong data-i18n="error.title">분석할 수 없습니다</strong>
+      <p id="errorText"></p>
+      <button class="btn btn-ghost" id="errorReset" type="button" data-i18n="error.retry">다시 시도</button>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="player-head">
+        <div class="player-identity">
+          <div class="player-avatar-frame" id="avatarFrame" hidden title="프로필 이미지">
+            <img id="playerAvatar" class="player-avatar" alt="" hidden />
+          </div>
+          <div class="player-identity-text">
+            <p class="eyebrow">THE RECORD OF THE NIGHT</p>
+            <h2 id="playerTitle">나의 전적</h2>
+            <div class="muted" id="playerAliases" hidden></div>
+            <p class="muted" id="playerSub" hidden></p>
+          </div>
+        </div>
+        <div class="player-actions">
+          <span class="chip" id="demoChip" hidden data-i18n="dash.demo">데모 데이터</span>
+          <button class="btn btn-solid" id="resetBtn" type="button" data-i18n="dash.reset">다른 세이브 분석</button>
+        </div>
+      </div>
+
+      <div class="record-controls">
+        <div class="mode-tabs" id="modeTabs" role="tablist" aria-label="게임 모드" data-i18n-aria="dash.modeAria"></div>
+      </div>
+
+      <nav class="page-tabs" id="pageTabs" aria-label="페이지" data-i18n-aria="dash.pageAria">
+        <button type="button" data-page="overview" class="active" data-i18n="tab.overview">개요</button>
+        <button type="button" data-page="jobs" data-i18n="tab.jobs">직업</button>
+        <button type="button" data-page="boss" data-i18n="tab.boss">보스</button>
+        <button type="button" data-page="mates" data-i18n="tab.mates">매칭</button>
+        <button type="button" data-page="runs" data-i18n="tab.runs">기록</button>
+      </nav>
+
+      <div class="page" data-page="overview">
+        <div class="mode-compare" id="modeCompare"></div>
+        <div class="cards" id="summaryCards"></div>
+
+        <article class="panel insight-panel">
+          <header class="panel-head">
+            <h3 data-i18n="panel.insights">인사이트</h3>
+          </header>
+          <div class="insights" id="insights"></div>
+        </article>
+
+        <div class="chart-grid">
+          <article class="panel panel-wide">
+            <header class="panel-head panel-head-row">
+              <div>
+                <h3><span data-i18n="panel.ratingTrend">심도 레이팅 추이</span> <span id="ratingCurrent" class="elo-current"></span></h3>
+              </div>
+              <label class="chart-char-filter">
+                <span class="sr-only" data-i18n="chart.character">캐릭터</span>
+                <select id="ratingCharSelect" hidden></select>
+              </label>
+            </header>
+            <p id="ratingEmpty" class="muted" hidden data-i18n="panel.ratingEmpty">이 범위에는 심도 레이팅 기록이 없습니다.</p>
+            <div class="chart-wrap"><canvas id="ratingChart" role="img" aria-label="심도 기록 레이팅 추이"></canvas></div>
+          </article>
+          <article class="panel panel-wide">
+            <header class="panel-head">
+              <h3 data-i18n="panel.winTrend">승률 추이</h3>
+            </header>
+            <div class="chart-wrap"><canvas id="trendChart" role="img" aria-label="최근 10회 이동 승률과 누적 승률 추이"></canvas></div>
+          </article>
+
+          <article class="panel">
+            <header class="panel-head panel-head-row">
+              <div>
+                <h3><span data-i18n="panel.elo">승패 참고 지수</span> <span class="elo-current" id="eloCurrent"></span></h3>
+              </div>
+              <label class="chart-char-filter">
+                <span class="sr-only" data-i18n="chart.character">캐릭터</span>
+                <select id="eloCharSelect" hidden></select>
+              </label>
+            </header>
+            <div class="chart-wrap"><canvas id="eloChart" role="img" aria-label="참고용 Elo 추이"></canvas></div>
+            <details class="calc-details">
+              <summary data-i18n="calc.summary">계산 방식</summary>
+              <div class="calc-body">
+                <p data-i18n="calc.p1">캐릭터별로 날짜순 처리합니다. 시작 지수 1000, K=24.</p>
+                <p data-i18n="calc.p2">기대 승률 = 1 / (1 + 10^((1000 - 현재 지수) / 400)). 승리는 1, 패배는 0입니다.</p>
+                <p data-i18n="calc.p3">지수 += 24 × (결과 - 기대 승률). 상대 레이팅은 1000 고정이며, 캐릭터를 바꿔도 서로 점수를 섞지 않습니다.</p>
+                <p data-i18n="calc.p4">공식 심도 레이팅이 아닙니다. 상대 실력이 없어 승률 곡선의 변형에 가깝습니다. 드롭다운으로 캐릭터별 추이를 볼 수 있습니다.</p>
+              </div>
+            </details>
+          </article>
+
+          <article class="panel">
+            <header class="panel-head">
+              <h3 data-i18n="panel.form">최근 폼</h3>
+            </header>
+            <div id="recentForm" class="form-panel"></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="page" data-page="jobs" hidden>
+        <div class="chart-grid">
+          <article class="panel">
+            <header class="panel-head">
+              <h3 data-i18n="panel.jobWin">직업별 승률</h3>
+            </header>
+            <div class="chart-wrap"><canvas id="charChart" role="img" aria-label="직업별 승률"></canvas></div>
+          </article>
+
+          <article class="panel">
+            <header class="panel-head">
+              <h3 data-i18n="panel.jobUsage">직업 사용 비중</h3>
+            </header>
+            <div class="chart-wrap chart-wrap-small"><canvas id="usageChart" role="img" aria-label="직업 사용 비중"></canvas></div>
+          </article>
+        </div>
+
+        <article class="panel">
+          <header class="panel-head panel-head-row">
+            <div>
+              <h3 data-i18n="panel.jobRecords">직업 전적</h3>
+            </div>
+          </header>
+          <div class="char-grid" id="charCards"></div>
+        </article>
+      </div>
+
+      <div class="page" data-page="boss" hidden>
+        <div class="chart-grid">
+          <article class="panel">
+            <header class="panel-head">
+              <h3 data-i18n="panel.bossMeet">보스 조우 비율</h3>
+            </header>
+            <div class="chart-wrap"><canvas id="bossMeetChart" role="img" aria-label="보스 조우 비율"></canvas></div>
+          </article>
+          <article class="panel">
+            <header class="panel-head">
+              <h3 data-i18n="panel.bossEverdark">영원한 밤의 왕 조우율</h3>
+            </header>
+            <div class="chart-wrap"><canvas id="bossEverdarkChart" role="img" aria-label="보스별 영원한 밤의 왕 조우율"></canvas></div>
+          </article>
+        </div>
+
+        <article class="panel boss-panel">
+          <header class="panel-head panel-head-row">
+            <div>
+              <h3 data-i18n="panel.bossAnalysis">보스 분석</h3>
+            </div>
+            <div class="boss-filter" id="bossFilter" role="group" aria-label="보스 구분" data-i18n-aria="boss.filterAria">
+              <button type="button" data-variant="all" class="active" data-i18n="boss.all">전체</button>
+              <button type="button" data-variant="normal" data-i18n="boss.normal">기본</button>
+              <button type="button" data-variant="everdark" data-i18n="boss.everdark">영원한 밤의 왕</button>
+            </div>
+          </header>
+          <div class="boss-list" id="bossList"></div>
+        </article>
+
+        <article class="panel">
+          <header class="panel-head panel-head-row">
+            <div>
+              <h3 data-i18n="panel.bossMatrix">보스 × 내 직업</h3>
+            </div>
+          </header>
+          <div class="matrix-wrap" id="bossMatrix"></div>
+        </article>
+      </div>
+
+      <div class="page" data-page="mates" hidden>
+        <article class="panel mates-panel">
+          <header class="panel-head panel-head-row">
+            <div>
+              <h3 data-i18n="panel.mates">자주 만난 플레이어</h3>
+            </div>
+          </header>
+          <div class="mate-grid" id="mateCards"></div>
+          <details class="mate-more">
+            <summary data-i18n="panel.matesMore">2회 이상 함께한 플레이어 보기</summary>
+            <div class="mate-table-wrap"><div id="mateTable"></div></div>
+          </details>
+        </article>
+
+        <article class="panel">
+          <header class="panel-head panel-head-row">
+            <div>
+              <h3 data-i18n="panel.comps">파티 조합 승률</h3>
+            </div>
+          </header>
+          <div class="table-wrap"><div id="compTable"></div></div>
+        </article>
+      </div>
+
+      <div class="page" data-page="runs" hidden>
+        <article class="panel">
+          <header class="panel-head panel-head-row">
+            <div>
+              <h3 data-i18n="panel.runs">최근 원정</h3>
+              <p id="runsCaption" data-i18n="panel.runsRecent">최근 20회</p>
+            </div>
+            <button class="btn btn-ghost btn-small" id="toggleRuns" type="button" data-i18n="panel.runsAll">전체 보기</button>
+          </header>
+          <div class="table-wrap">
+            <table class="runs-table">
+              <thead>
+                <tr>
+                  <th data-i18n="runs.date">날짜</th>
+                  <th data-i18n="runs.job">직업</th>
+                  <th data-i18n="runs.boss">도전 보스</th>
+                  <th data-i18n="runs.mode">모드</th>
+                  <th data-i18n="runs.result">결과</th>
+                  <th data-i18n="runs.reach">도달</th>
+                  <th data-i18n="runs.time">소요 시간</th>
+                  <th data-i18n="runs.elo">참고 지수</th>
+                </tr>
+              </thead>
+              <tbody id="runsBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="about">
+      <div class="about-grid">
+        <div>
+          <h3 data-i18n="about.howTitle">어떻게 동작하나요?</h3>
+          <p data-i18n="about.howBody">Nightreign 세이브는 BND4 컨테이너 안의 AES-128-CBC 블록으로 저장됩니다. 이 페이지는 WebCrypto로 각 블록을 복호화하고, 원정 기록 테이블에서 날짜·직업 ID·모드·승패·소요 시간을 읽습니다. 같은 기록의 3개 플레이어 블록에서 파티원 이름과 직업을, 원정 헤더에서 보스와 강화(Everdark) 여부를 읽습니다. 세이브 슬롯은 모두 한 유저로 합산하고, 직업은 기록의 직업 ID(추적자·수호자·철의 눈 등)로 분류합니다. 분석 결과는 이 브라우저에 누적되고, 서버가 연결되면 캐릭터 이름과 구분 태그로 다른 사람도 검색할 수 있습니다.</p>
+        </div>
+        <div>
+          <h3 data-i18n="about.noteTitle">알아두세요</h3>
+          <p data-i18n="about.noteBody">게임 서버의 저장 목록은 최대 100개입니다. 같은 세이브를 다시 분석하면 이전에 저장한 원정과 새 원정을 합쳐 누적 기록으로 보여 줍니다. 일반/심도와 기본/강화 보스를 각각 구분해 집계합니다. 유물 조합기는 계정 주인이 세이브를 분석한 뒤 상단 유물 페이지에서 사용할 수 있습니다. 레이팅처럼 보이는 값도 발견했으나 의미를 확인하지 못해 공식 레이팅으로 제공하지 않습니다. ‘승패 참고 지수’는 시작 1000, K=24, 상대 레이팅 1000 고정의 임의 계산값입니다.</p>
+        </div>
+        <div>
+          <h3 data-i18n="about.fanTitle">비공식 팬 도구</h3>
+          <p data-i18n="about.fanBody">FromSoftware, Bandai Namco, Steam과 무관한 비공식 팬 프로젝트입니다. 세이브 파일을 읽기 전용으로만 다루며 게임 데이터를 수정하지 않습니다.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-main">
+      <span data-i18n="footer.brand">밤의 기록 · NIGHTREIGN SAVE ANALYZER</span>
+      <span class="muted" data-i18n="footer.privacy">세이브는 브라우저에서만 처리됩니다.</span>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:jcy19960721@gmail.com" data-i18n="footer.contact">문의</a>
+      <a href="https://github.com/sponsors/jeongchanyoung-1234" target="_blank" rel="noopener noreferrer" data-i18n="footer.sponsor">개발자에게 커피 한 잔</a>
+      <div class="lang-switch" data-lang-switch></div>
+    </div>
+  </footer>
+
+  <dialog id="noticeDialog" class="notice-dialog">
+    <p class="notice-dialog-title" id="noticeDialogTitle" hidden></p>
+    <p id="noticeDialogText"></p>
+    <form method="dialog" class="notice-dialog-actions">
+      <a class="btn btn-solid" id="noticeDialogCta" href="signup.html" hidden data-i18n="nav.signup">회원가입</a>
+      <button class="btn btn-ghost" value="ok" id="noticeDialogOk" data-i18n="notice.ok">확인</button>
+    </form>
+  </dialog>
+
+  <script src="assets/vendor/pako.min.js"></script>
+  <script src="assets/vendor/chart.umd.min.js"></script>
+  <script type="module" src="assets/app.js?v=78"></script>
+</body>
+</html>

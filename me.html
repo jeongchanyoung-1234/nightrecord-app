@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko" data-i18n-title-key="me.title">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>마이페이지 — 밤의 기록</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css?v=23" />
+</head>
+<body>
+  <div class="grain"></div>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="brand" href="./"><span class="brand-mark">◈</span><span data-i18n="brand.name">밤의 기록</span></a>
+    </div>
+    <div class="topbar-center" aria-hidden="true"></div>
+    <nav class="account-nav topbar-right" aria-label="계정" data-i18n-aria="nav.account">
+      <a class="btn btn-ghost" href="./" data-i18n="nav.recordsPage">기록 페이지</a>
+      <button id="signOut" class="btn btn-ghost" type="button" data-i18n="nav.logout">로그아웃</button>
+    </nav>
+  </header>
+  <main class="me-page">
+    <p class="eyebrow">ACCOUNT</p>
+    <h1 data-i18n="me.title">마이페이지</h1>
+    <div class="me-tabs" role="tablist">
+      <button class="btn btn-solid" id="tabRecords" type="button" data-i18n="me.records">내 기록</button>
+      <button class="btn btn-ghost" id="tabSettings" type="button" data-i18n="me.settings">설정</button>
+    </div>
+    <section id="recordsPanel">
+      <div id="recordList" class="record-list"><p class="muted" data-i18n="me.loading">기록을 불러오는 중…</p></div>
+    </section>
+    <section id="settingsPanel" hidden>
+      <form id="passwordForm" class="me-card auth-form">
+        <h2 data-i18n="me.profile">개인정보</h2>
+        <p><span data-i18n="me.email">이메일</span> <strong id="accountEmail">—</strong></p>
+        <label><span data-i18n="me.currentPassword">현재 비밀번호</span> <input id="currentPassword" type="password" autocomplete="current-password" required minlength="8" maxlength="72" /></label>
+        <label><span data-i18n="me.newPassword">새 비밀번호</span> <input id="newPassword" type="password" autocomplete="new-password" required minlength="8" maxlength="72" /></label>
+        <label><span data-i18n="me.confirmPassword">새 비밀번호 확인</span> <input id="confirmPassword" type="password" autocomplete="new-password" required minlength="8" maxlength="72" /></label>
+        <button class="btn btn-solid" type="submit" data-i18n="me.changePassword">비밀번호 변경</button>
+        <p id="passwordMessage" class="muted" role="status"></p>
+      </form>
+      <div class="me-card">
+        <h2 data-i18n="me.avatar">프로필 이미지</h2>
+        <p class="muted" data-i18n="me.avatarHint">전적 화면 이름 옆에 표시할 직업 일러스트를 고릅니다. 이 브라우저에만 저장됩니다.</p>
+        <div id="avatarList"></div>
+        <p id="avatarMessage" class="muted" role="status"></p>
+      </div>
+      <div class="me-card">
+        <h2 data-i18n="me.tag">검색 태그</h2>
+        <p class="muted" data-i18n="me.tagHint">세이브마다 표시 태그를 하나만 정합니다. 검색과 전적 화면에는 이 태그만 나오고, 아래에는 어떤 세이브인지 구분하도록 식별자를 보여 줍니다.</p>
+        <div id="tagList"></div>
+        <p id="tagMessage" class="muted" role="status"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-main">
+      <span data-i18n="footer.brand">밤의 기록 · NIGHTREIGN SAVE ANALYZER</span>
+      <span class="muted" data-i18n="footer.privacy">세이브는 브라우저에서만 처리됩니다.</span>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:jcy19960721@gmail.com" data-i18n="footer.contact">문의</a>
+      <a href="https://github.com/sponsors/jeongchanyoung-1234" target="_blank" rel="noopener noreferrer" data-i18n="footer.sponsor">개발자에게 커피 한 잔</a>
+      <div class="lang-switch" data-lang-switch></div>
+    </div>
+  </footer>
+
+  <dialog id="avatarDialog" class="avatar-dialog">
+    <header class="avatar-dialog-head">
+      <h3 data-i18n="me.avatar">프로필 이미지</h3>
+      <p class="muted" data-i18n="me.avatarDialogHint">직업 일러스트 중 하나를 고르면 전적 화면 이름 옆에 표시됩니다.</p>
+    </header>
+    <div class="avatar-grid" id="avatarGrid"></div>
+    <form method="dialog" class="avatar-dialog-actions">
+      <button class="btn btn-ghost" value="clear" id="avatarClearBtn" type="submit" data-i18n="me.avatarNone">이미지 없음</button>
+      <button class="btn btn-solid" value="cancel" type="submit" data-i18n="me.avatarClose">닫기</button>
+    </form>
+  </dialog>
+  <script type="module" src="assets/me.js?v=16"></script>
+</body>
+</html>
