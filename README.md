@@ -1,132 +1,146 @@
-# 밤의 기록 — ELDEN RING NIGHTREIGN Save Analyzer
+<p align="center">
+  <a href="https://nightrecord.app">
+    <img src="https://nightrecord.app/assets/favicon.svg" width="88" height="88" alt="밤의 기록" />
+  </a>
+</p>
 
-`NR0000.sl2` 세이브 파일을 브라우저에서 분석해 승률, 직업별 전적, 심도/일반 전적, 보스별 전적, 함께한 플레이어와 승률 추이를 보여주는 비공식 팬 도구입니다. 게임은 최근 100개만 남기지만, 같은 세이브를 다시 분석하면 이전 원정과 합칩니다.
+<h1 align="center">밤의 기록 · Night's Record</h1>
 
-세이브 분석은 브라우저에서 하고, 계정과 공개 전적은 이 서버의 SQLite 데이터베이스에 저장합니다.
+<p align="center">
+  <strong>ELDEN RING NIGHTREIGN</strong> 전적 분석 · 심도 레이팅 · 유물 조합 추천<br />
+  비공식 팬 사이트
+</p>
 
-- 데모: 배포 주소 뒤에 `?demo=1`을 붙이면 세이브 없이 화면을 볼 수 있습니다.
-- 배포용 ZIP: 상위 폴더의 `nightreign-tracker.zip`
-- 상세 검토: [DATA-AUDIT.md](DATA-AUDIT.md)
-- 이 서버의 데이터베이스와 실행 방법: [SUPABASE-SETUP.md](SUPABASE-SETUP.md)
+<p align="center">
+  <a href="https://nightrecord.app"><img src="https://img.shields.io/badge/Live-nightrecord.app-c9a227?style=for-the-badge&labelColor=0a0a0c" alt="Live site" /></a>
+  <a href="https://nightrecord.app/?demo=1"><img src="https://img.shields.io/badge/Demo-try_without_save-7f9fd4?style=for-the-badge&labelColor=0a0a0c" alt="Demo" /></a>
+  <img src="https://img.shields.io/badge/KO_·_EN_·_ZH_·_JA-i18n-7fbf8a?style=for-the-badge&labelColor=0a0a0c" alt="Languages" />
+</p>
 
-## 기능
+<p align="center">
+  <img src="https://nightrecord.app/assets/img/wylder.webp" height="56" alt="Wylder" />
+  <img src="https://nightrecord.app/assets/img/guardian.webp" height="56" alt="Guardian" />
+  <img src="https://nightrecord.app/assets/img/ironeye.webp" height="56" alt="Ironeye" />
+  <img src="https://nightrecord.app/assets/img/dutchess.webp" height="56" alt="Duchess" />
+  <img src="https://nightrecord.app/assets/img/raider.webp" height="56" alt="Raider" />
+  <img src="https://nightrecord.app/assets/img/revenant.webp" height="56" alt="Revenant" />
+  <img src="https://nightrecord.app/assets/img/recluse.webp" height="56" alt="Recluse" />
+  <img src="https://nightrecord.app/assets/img/executor.webp" height="56" alt="Executor" />
+  <img src="https://nightrecord.app/assets/img/scholar.webp" height="56" alt="Scholar" />
+  <img src="https://nightrecord.app/assets/img/undertaker.webp" height="56" alt="Undertaker" />
+</p>
 
-- 저장 목록 (기본) / 잔존 기록 포함 (불완전) 범위 전환
-- 캐릭터 영역에서 발견한 과거 잔존 기록은 별도 선택으로 포함
-- 직업별 승률 · 사용 비중 · 평균 클리어 시간
-- 목록 내 연속 승리 (누락 경기를 반영한 실제 연승은 아님)
-- 최종일(나이트로드) 도달률
-- 심도/일반 통계 (사용자 인게임 대조 후 모드 표기 확정)
-- 자주 만난 플레이어 Top 3와 전체 함께한 플레이어 목록
-- 보스별 평균 클리어 시간
+---
+
+## 당신의 밤은, 어떤 기록을 남겼나
+
+게임은 전적을 **최근 100판**만 남깁니다.  
+**밤의 기록**은 `NR0000.sl2`를 브라우저에서 읽어, 그 한계를 넘는 **누적 전적·심도 레이팅·파티/보스 인사이트·유물 조합**까지 한곳에 모읍니다.
+
+> 세이브 원본은 **내 브라우저에서만** 해독됩니다.  
+> 로그인하면 분석된 원정 요약이 계정에 쌓이고, 원하는 프로필만 공개 검색에 올라갑니다.
+
+**지금 바로:** [nightrecord.app](https://nightrecord.app) · [데모로 둘러보기](https://nightrecord.app/?demo=1)
+
+---
+
+## Why Night's Record
+
+| | 강점 |
+| --- | --- |
+| 🔒 **프라이버시 우선** | SL2 해독·파싱은 클라이언트에서 처리. 원본 파일을 서버에 올리지 않습니다. |
+| 📈 **100판 너머의 누적** | 같은 Steam 세이브를 다시 분석할수록 기록이 합쳐집니다. 게임이 밀어낸 과거도 사이트에 남길 수 있습니다. |
+| 🌑 **심도 / 일반 / Everdark** | 모드·강화 보스를 구분해 승률·도달·시간을 봅니다. |
+| 🎯 **캐릭터별 심도 레이팅** | 슬롯 점수와 피크, 추이 차트로 “지금 내 깊이”를 추적합니다. |
+| 👥 **파티·보스 인사이트** | 함께한 플레이어, 직업 조합, 보스×직업 매트릭스까지. |
+| 🧩 **유물 조합기** | 보유 유물 기준으로 직업·접시 조합을 추천합니다. (계정 주인) |
+| 🌐 **4개 언어** | 한국어 · English · 中文 · 日本語 |
+
+---
+
+## Features
+
+### 전적 대시보드
+- 개요 / 직업 / 보스 / 매칭 / 기록 탭
+- 승률, 연승, 최종일(나이트로드) 도달률, 평균 클리어 시간
+- 최근 폼(W/L), 승률·참고 Elo 추이 그래프
+- 심도 기록 레이팅 시계열 · 캐릭터별 peak
+
+### 보스 & 파티
+- 밤의 통치자별 승률 (기본 / Everdark 분리)
 - 보스 × 내 직업 승률 매트릭스
-- 파티 직업 조합별 승률
-- 상단 페이지 탭(개요 / 직업 / 보스 / 매칭 / 기록)
-- 밤의 통치자별 승률 (기본 / 강화 Everdark 분리, 필터는 직업 비교표에도 적용)
-- 보스별 내 직업 승률과 파티 직업 조합 승률
-- 최근 10회 이동 승률과 누적 승률 그래프
-- 승패 기반 참고용 Elo 그래프 (공식 레이팅 아님)
-- 심도 기록 레이팅 추이 (세이브 값, 진입/종료 시점 미확인)
-- 같은 Steam 세이브의 캐릭터를 하나의 전적으로 누적. 게임이 최근 100개만 남겨도 다시 분석하면 이전 원정과 합산
-- 공개 검색 `캐릭터이름#태그`. 한 세이브의 여러 캐릭터는 같은 태그를 쓰며, 최근 업데이트 시각을 표시
-- 이메일·비밀번호 회원가입과 로그인, 계정별 원정 누적 병합, 신규/중복/누적 개수 안내
-- 원정 상세 테이블 (날짜·ID·출처 / 직업 / 보스 / 추정 모드 / 승패 / 도달 일차 / 원정 소요 시간)
-- 원정 ID와 잔존 기록 출처 표시
-- 세이브 원본은 로컬 처리 — 로그인 시 분석된 원정 기록만 본인 계정에 저장
+- 자주 만난 동료 Top · 파티 직업 조합별 성적
 
-## 로컬 실행
+### 공개 프로필
+- `캐릭터이름#태그` 검색 · 자동완성
+- 한 세이브의 여러 캐릭터를 하나의 태그로 묶음
+- 표시 태그 · 아바타 · 피크 레이팅 공개
 
-ES 모듈과 WebCrypto를 사용하므로 `file://`로 직접 열지 말고 로컬 서버로 여세요.
+### 유물 조합기
+- 세이브에서 읽은 보유 유물로 로드아웃 추천
+- 직업·빌드 맥락에 맞춘 조합 탐색 (로그인·본인 세이브)
+
+### 계정
+- 아이디/비밀번호 가입 · 로그인
+- 게스트는 단발 분석, 로그인 시 누적·공개 동기화
+
+---
+
+## Quick start (players)
+
+1. [nightrecord.app](https://nightrecord.app) 접속  
+2. 게임 종료 후 세이브 복사  
+   ```text
+   %APPDATA%\Nightreign\<SteamID>\NR0000.sl2
+   ```
+3. 파일을 끌어다 놓기 → 전적 확인  
+4. (선택) 가입 후 다시 분석하면 공개 검색·유물 조합기 사용
+
+세이브 없이 UI만 보려면 [`?demo=1`](https://nightrecord.app/?demo=1) 을 붙이세요.
+
+---
+
+## Repository note
+
+이 공개 저장소는 **사이트 소개·UI·배포 골격**을 담습니다.  
+세이브 파서·추천 가중치·내부 감사 자료 등 **운영 핵심 로직은 포함하지 않습니다.**  
+실제 서비스는 [nightrecord.app](https://nightrecord.app) 에서 이용해 주세요.
+
+로컬에서 UI 골격만 보려면:
 
 ```bash
-cd nightreign-tracker
-python3 server/app.py
+cp .env.example .env
+docker compose up -d
 # http://127.0.0.1:8080
 ```
 
-데이터베이스 파일은 `data/nightrecord.sqlite`에 만들어집니다. `python -m http.server`만 쓰면 화면은 열리지만 로그인과 공개 검색은 동작하지 않습니다.
+---
 
-## 무료 호스팅
+## Stack (public surface)
 
-`github.io`, `pages.dev`, `netlify.app`은 등록비 없이 쓰는 무료 주소입니다. `nightrecord.com`이나 `incensemusic.app` 같은 독립 도메인은 등록비가 있습니다. GitHub Pages는 화면만 올릴 수 있고 이 SQLite 데이터베이스는 올리지 못합니다. 데이터베이스를 이 서버에 두려면 사이트와 `server/app.py`를 함께 두고, 무료 이름은 [DuckDNS](https://www.duckdns.org/)의 `이름.duckdns.org`를 이 서버로 연결하면 됩니다.
+- Front: Vanilla JS (ES modules), WebCrypto, Chart.js, pako  
+- Server: Python `ThreadingHTTPServer` + SQLite  
+- Deploy: Docker Compose · nginx · Let’s Encrypt  
 
-### 0) Netlify Drop (가장 빠름)
+서드파티 고지: [NOTICE.md](NOTICE.md)
 
-1. <https://app.netlify.com/drop> 접속
-2. `nightreign-tracker.zip` 파일을 페이지에 끌어다 놓기
-3. 무료 계정으로 로그인/가입
-4. **Site configuration → Change site name**에서 원하는 이름 입력
-5. `https://<원하는이름>.netlify.app` 주소로 바로 공개됩니다.
+---
 
-### 1) Cloudflare Pages (추천)
+## Contributing & contact
 
-1. <https://dash.cloudflare.com> → **Workers & Pages** → **Create** → **Pages** → **Upload assets**
-2. `nightreign-tracker` 폴더 안의 파일을 그대로 업로드
-3. 배포 후 `https://<프로젝트명>.pages.dev` 무료 주소가 발급됩니다.
-4. 커스텀 도메인을 사지 않아도 됩니다.
+이슈·아이디어는 환영합니다.  
+문의: [jcy19960721@gmail.com](mailto:jcy19960721@gmail.com)  
+후원: [GitHub Sponsors](https://github.com/sponsors/jeongchanyoung-1234)
 
-### 2) Vercel
+---
 
-```bash
-cd nightreign-tracker
-npx vercel
-```
+## Disclaimer
 
-로그인 후 안내에 따라 배포하면 `https://<프로젝트명>.vercel.app` 주소가 발급됩니다.
+**밤의 기록**은 FromSoftware, Bandai Namco, Steam과 무관한 **비공식 팬 프로젝트**입니다.  
+ELDEN RING NIGHTREIGN 및 관련 명칭·이미지의 권리는 각 권리자에게 있습니다.  
+세이브는 읽기 전용으로만 다루며 게임 데이터를 수정하지 않습니다.
 
-### 3) GitHub Pages
-
-```bash
-cd nightreign-tracker
-git init
-git add .
-git commit -m "add nightreign tracker"
-git branch -M main
-git remote add origin https://github.com/<사용자명>/<저장소명>.git
-git push -u origin main
-```
-
-GitHub 저장소 → **Settings** → **Pages** → **Build and deployment**에서
-**Deploy from a branch** → `main` / `/(root)`를 선택하면
-`https://<사용자명>.github.io/<저장소명>/` 주소로 배포됩니다.
-
-## 세이브 파일 위치
-
-Windows:
-
-```text
-%APPDATA%\Nightreign\<SteamID>\NR0000.sl2
-```
-
-게임이 실행 중일 때 복사하면 클라우드 동기화와 충돌할 수 있으므로 게임을 종료한 뒤 복사하는 것을 권장합니다.
-
-## 데이터에 대해
-
-- 기본 집계는 USERDATA_10의 RSCL 마커 +0x20부터 이어진 최대 100개의 0x750 크기 기록입니다. 전체 바이트 검색으로 최근 목록을 구성하지 않습니다. 검사 파일의 목록 ID 100개는 RSLT 결과 상세 ID 100개와 일치했습니다.
-- 검사 파일은 저장 목록 100개 + 캐릭터 USERDATA_00의 중복 제외 잔존 기록 40개 = 합계 140개입니다. 추가 40개는 2026-09-14~2026-09-19(UTC)에 해당합니다. 캐릭터 영역에 46개가 있고 그중 6개가 저장 목록과 ID 중복입니다. 중복 중 5개는 0x750 바이트 전체도 동일합니다. 캐릭터 영역의 활성 목록인지 오래된 캐시인지는 확인하지 못했습니다.
-- 저장 목록에도 ID 161·173·187·198·199·200의 오래된 기록 6개가 있고, 나머지는 1212~1305의 94개입니다. 오래된 6개에만 +0x14=1이 있어 고정/즐겨찾기 기록으로 추정되지만 게임 확인 전입니다. 따라서 ‘최신 100경기’ 또는 ‘생애 전체 140경기’라고 부르지 않습니다. ID 201~1211 구간 등의 누락이 있습니다.
-- 세이브 슬롯은 모두 **한 유저**로 합산합니다. 메뉴 데이터의 SteamID64로 프로필 키를 만들고, 그 키로 이 브라우저와 공개 기록의 원정을 누적합니다. SteamID64 원문은 저장하지 않습니다. 직업은 원정 기록의 직업 필드(`+0x7a`, 1~10)로 분류합니다. (1 추적자, 2 수호자, 3 철의 눈, 4 레이디, 5 무뢰한, 6 복수자, 7 은둔자, 8 집행자, 9 학자, 10 장의사)
-- 기존 +0x28의 bit24(+0x2b)를 일반/심도로 해석한 것은 근거가 없으므로 폐기했습니다. 현재는 +0x29=2이고 +0x40 깊이 후보가 1~5이면 심도 추정, +0x29=0/1이고 깊이·레이팅 후보가 0이면 일반 계열 추정, 나머지는 미확인입니다. 모드 의미는 게임 화면과 대조 전입니다. 일반 계열에는 특수 원정 등이 포함될 수 있습니다.
-- +0x41의 비정렬 u32 값은 심도 추정 기록에서 2608, 4916, 7366 등으로 나타나 레이팅 후보입니다. 종료 시점인지 진입 시점인지, 공식 값과 일치하는지 미확인이라 공식 레이팅 그래프로 제공하지 않습니다. 이전의 ‘공식 레이팅은 세이브에 없다’는 단정도 철회합니다.
-- 화면의 **승패 참고 지수**는 시작 1000, K=24, 상대 1000 고정의 임의 Elo 계산입니다. 실력이나 공식 심도 레이팅을 추출한 값이 아닙니다. 범위를 바꾸면 시작점이 바뀌고, 모드 필터에서는 선택 범위 전체의 지수를 유지합니다.
-- 원정 기록 한 건은 3개의 플레이어 블록(0x250 간격)으로 이루어집니다. 각 블록의 `+0x54`는 파티 슬롯, `+0x58`은 캐릭터명, `+0x7a`는 직업 ID, `+0x7c`는 레벨입니다. 첫 블록이 내 캐릭터이고, 나머지 블록에서 함께한 플레이어 이름과 직업을 읽습니다.
-- 보스는 원정 헤더의 `+0x2a`(0~9)로 분류합니다. 0~7은 기본 밤의 통치자, 8~9는 DLC 통치자입니다. ID 8은 안녕을 가져오는 자들, ID 9는 잔해의 왕입니다. 직전 버전의 DLC 이름표가 반대로 연결되어 보스별 직업 통계가 잘못 표시되었습니다.
-- 보스 이름 매핑: 0 세목 달린 짐승, 1 달려드는 턱, 2 지성의 벌레, 3 징조, 4 조율의 마물, 5 어둠을 달리는 사냥꾼, 6 안개의 틈새, 7 밤을 본뜬 자, 8 안녕을 가져오는 자들, 9 잔해의 왕.
-- +0x29는 모드로 사용합니다. 사용자 확인 후 화면의 모드 추정 표기와 미확인 탭, 검증 안내 패널을 제거했습니다. 강화는 별도 +0x2b의 0=기본, 1=Everdark로 분류합니다. 검사 목록에서 45개이며 일반·심도와 승패 양쪽에 존재합니다. 7·9번 보스는 강제로 제외하지 않아도 모두 0입니다. 강화 의미는 아직 특정 인게임 경기와 독립 대조가 필요합니다.
-- 세이브는 BND4 컨테이너의 AES-128-CBC 엔트리로 저장되며, 원정 기록 테이블에서 날짜·직업 ID·모드·승패 비트·소요 시간·파티·보스를 읽습니다. 결과 상세 블록(RSLT)은 도달 일차 표시에 사용합니다.
-- 파일은 읽기 전용으로만 다루며 게임 데이터를 수정하지 않습니다.
-
-## 알려진 제한
-
-- 세이브 버전/패치에 따라 원정 기록 테이블 위치나 필드가 달라질 수 있습니다. 파싱에 실패하면 오류 메시지를 표시합니다.
-- 저장 목록과 추가 잔존 기록 사이에 누락이 있습니다. 캐릭터 잔존 기록을 포함한 통계는 생존·저장 편향이 있을 수 있습니다.
-- 동료는 Steam ID가 아닌 캐릭터 이름 기준이라 동명이인은 합산되고 이름 변경은 분리됩니다. 같은 경기의 동일 이름은 횟수를 중복 가산하지 않습니다.
-- 보스 이름과 도달 일차 의미도 게임 화면과 추가 확인이 필요합니다. RSLT 상세가 없는 경기는 도달률 분모에서 제외하며 화면에 제외 수를 표시합니다.
-- 보스별 파티 조합은 표본이 적은 조합도 포함되므로, 1~2회 조합의 승률은 참고용으로만 보세요.
-- 깊이·레이팅 후보는 기록 행의 모드 툴팁으로 확인할 수 있습니다. 인게임 특정 경기와 대조해 필드 의미를 확정해야 합니다.
-- Steam 계정명은 세이브에 저장되지 않으므로 표시하지 않습니다.
-
-## 비공식 고지
-
-FromSoftware, Bandai Namco, Steam과 무관한 비공식 팬 프로젝트입니다.
-ELDEN RING NIGHTREIGN 및 관련 상표는 각 권리자에게 있습니다.
+<p align="center">
+  <br />
+  <a href="https://nightrecord.app"><strong>◈  nightrecord.app 에서 기록 남기기</strong></a>
+</p>
