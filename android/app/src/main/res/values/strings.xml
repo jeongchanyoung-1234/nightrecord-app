@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">밤의 기록</string>
+    <string name="widget_label">밤의 기록 전적</string>
+    <string name="widget_description">승률·전적·최근 10판 흐름을 홈 화면에서 확인합니다.</string>
+</resources>

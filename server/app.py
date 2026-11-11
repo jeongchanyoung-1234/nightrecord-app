@@ -1463,7 +1463,11 @@ class Handler(BaseHTTPRequestHandler):
     def serve_static(self, path, head_only=False):
         rel = 'index.html' if path in ('', '/') else path.lstrip('/')
         parts = [part for part in rel.split('/') if part]
-        if not parts or parts[0] in {'data', 'server', 'deploy'} or '..' in parts:
+        blocked_roots = {'data', 'server', 'deploy', 'android-twa', 'node_modules', '.git', '.cursor', '.cache'}
+        if not parts or parts[0] in blocked_roots or '..' in parts:
+            self.send_error(404)
+            return
+        if any(part.endswith('.keystore') or part.startswith('.keystore') for part in parts):
             self.send_error(404)
             return
         rel = '/'.join(parts)
@@ -1483,11 +1487,19 @@ class Handler(BaseHTTPRequestHandler):
             mime = 'image/webp'
         elif candidate.suffix == '.svg':
             mime = 'image/svg+xml'
+        elif candidate.suffix == '.webmanifest' or candidate.name.endswith('.webmanifest'):
+            mime = 'application/manifest+json; charset=utf-8'
+        elif candidate.suffix == '.apk':
+            mime = 'application/vnd.android.package-archive'
+        elif candidate.suffix == '.json' and '.well-known' in parts:
+            mime = 'application/json; charset=utf-8'
         elif mime == 'text/html' or candidate.suffix in {'.html', '.htm'}:
             mime = 'text/html; charset=utf-8'
         self.send_response(200)
         self.send_header('Content-Type', mime)
         self.send_header('Content-Length', str(len(data)))
+        if candidate.suffix == '.apk':
+            self.send_header('Content-Disposition', f'attachment; filename="{candidate.name}"')
         self.end_headers()
         if not head_only:
             self.wfile.write(data)

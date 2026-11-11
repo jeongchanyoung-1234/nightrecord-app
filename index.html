@@ -2,14 +2,21 @@
 <html lang="ko" data-i18n-title-key="meta.title">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>밤의 기록 — ELDEN RING NIGHTREIGN 전적 분석</title>
   <meta name="description" content="NR0000.sl2 세이브 파일을 브라우저에서 분석해 승률, 직업별 전적, 심도/일반 전적, 승률 추이를 보여주는 비공식 Nightreign 팬 도구." />
   <link rel="canonical" href="https://nightrecord.app/" />
   <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="밤의 기록" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
   <!-- 구글 서치콘솔 HTML 태그 확인 시 아래에 meta를 넣으세요. 파일 확인이면 google*.html을 루트에 두면 됩니다. -->
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="assets/styles.css?v=30" />
+  <link rel="stylesheet" href="assets/styles.css?v=38" />
 </head>
 <body>
   <div class="grain"></div>
@@ -26,6 +33,7 @@
       <button class="btn btn-solid" type="submit" data-i18n="nav.search">검색</button>
     </form>
     <nav class="account-nav topbar-right" aria-label="계정" data-i18n-aria="nav.account">
+      <div class="lang-switch" data-lang-switch></div>
       <a class="btn btn-relic-nav" id="relicsNavLink" href="/relics.html" hidden data-i18n="nav.relics">추천 유물 조합기</a>
       <a class="btn btn-ghost" id="loginLink" href="login.html" data-i18n="nav.login">로그인</a>
       <a class="btn btn-solid" id="signupLink" href="signup.html" data-i18n="nav.signup">회원가입</a>
@@ -59,6 +67,23 @@
         <button class="btn btn-ghost" id="demoBtn" type="button" data-i18n="landing.demo">데모 데이터로 둘러보기</button>
         <button class="btn btn-ghost" id="whereBtn" type="button" data-i18n="landing.where">세이브 파일 위치</button>
       </div>
+
+      <aside id="appPromo" class="app-promo" hidden>
+        <div class="app-promo-toggle" role="tablist" aria-label="앱 설치 플랫폼">
+          <button type="button" class="app-promo-tab is-active" data-promo-tab="android" aria-selected="true">Android</button>
+          <button type="button" class="app-promo-tab" data-promo-tab="ios" aria-selected="false">iOS</button>
+        </div>
+        <div class="app-promo-panel" data-promo-panel="android">
+          <a class="btn btn-solid app-promo-cta" data-promo="store" href="#" target="_blank" rel="noopener noreferrer" data-i18n="landing.oneStore">원스토어에서 앱 받기</a>
+          <a class="btn btn-ghost app-promo-cta" data-promo="play" href="#" target="_blank" rel="noopener noreferrer" hidden data-i18n="landing.playStore">Google Play에서 받기</a>
+          <a class="app-promo-secondary" data-promo="apk" href="/downloads/nightrecord.apk" download="nightrecord.apk" data-i18n="landing.apk">APK 직접 설치</a>
+        </div>
+        <div class="app-promo-panel" data-promo-panel="ios" hidden>
+          <button type="button" class="btn btn-solid app-promo-cta" data-promo="ios-add" data-i18n="landing.install">홈 화면에 추가</button>
+          <p class="app-promo-guide" data-promo="ios-guide" hidden data-i18n-html="landing.installIos">iPhone·iPad에서는 Safari 공유 버튼 → <strong>홈 화면에 추가</strong>로 바로가기를 만듭니다.</p>
+        </div>
+        <p class="app-promo-note" data-i18n="promo.appNote">앱은 한국어만 지원합니다 · 웹에서 세이브 분석한 회원용</p>
+      </aside>
 
       <div class="hint-box" id="whereBox" hidden>
         <p data-i18n="landing.wherePath">Windows 기준 기본 경로입니다. %APPDATA%는 이미 AppData\Roaming을 가리킵니다.</p>
@@ -322,7 +347,6 @@
     <div class="footer-links">
       <a href="mailto:jcy19960721@gmail.com" data-i18n="footer.contact">문의</a>
       <a href="https://github.com/sponsors/jeongchanyoung-1234" target="_blank" rel="noopener noreferrer" data-i18n="footer.sponsor">개발자에게 커피 한 잔</a>
-      <div class="lang-switch" data-lang-switch></div>
     </div>
   </footer>
 
@@ -337,6 +361,6 @@
 
   <script src="assets/vendor/pako.min.js"></script>
   <script src="assets/vendor/chart.umd.min.js"></script>
-  <script type="module" src="assets/app.js?v=78"></script>
+  <script type="module" src="assets/app.js?v=83"></script>
 </body>
 </html>

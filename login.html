@@ -2,11 +2,18 @@
 <html lang="ko" data-i18n-title-key="auth.loginTitle">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>로그인 — 밤의 기록</title>
   <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="밤의 기록" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="assets/styles.css?v=30" />
+  <link rel="stylesheet" href="assets/styles.css?v=38" />
 </head>
 <body data-auth="login">
   <div class="grain"></div>
@@ -16,6 +23,7 @@
     </div>
     <div class="topbar-center" aria-hidden="true"></div>
     <nav class="account-nav topbar-right" aria-label="계정">
+      <div class="lang-switch" data-lang-switch></div>
       <a class="btn btn-ghost" href="signup.html" data-i18n="nav.signup">회원가입</a>
     </nav>
   </header>
@@ -43,10 +51,9 @@
     <div class="footer-links">
       <a href="mailto:jcy19960721@gmail.com" data-i18n="footer.contact">문의</a>
       <a href="https://github.com/sponsors/jeongchanyoung-1234" target="_blank" rel="noopener noreferrer" data-i18n="footer.sponsor">개발자에게 커피 한 잔</a>
-      <div class="lang-switch" data-lang-switch></div>
     </div>
   </footer>
 
-  <script type="module" src="assets/auth-pages.js?v=4"></script>
+  <script type="module" src="assets/auth-pages.js?v=6"></script>
 </body>
 </html>

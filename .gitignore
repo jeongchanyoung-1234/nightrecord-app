@@ -78,3 +78,39 @@ Thumbs.db
 tmp/
 temp/
 .cache/
+
+# --- 배포용 APK (용량·서명본은 사이트에서만 제공) ---
+downloads/*.apk
+**/*.apk
+**/*.aab
+**/*.idsig
+
+# --- Android TWA 빌드 · 서명 비밀 ---
+android-twa/android.keystore
+android-twa/.keystore-password
+android-twa/node_modules/
+android-twa/.gradle/
+android-twa/app/build/
+android-twa/build/
+android-twa/package-lock.json
+
+# --- Kotlin native Android 빌드 · 로컬 SDK ---
+android/.gradle/
+android/build/
+android/app/build/
+android/core-parser/build/
+android/local.properties
+android/**/keystore/
+android/**/*.jks
+android/**/*.keystore
+android/.idea/
+android/**/src/test/snapshots/
+android/app/build/ui-preview/
+
+# --- Android 세이브 파서·추천 엔진·가중치 (웹과 동일하게 비공개) ---
+android/app/src/main/assets/relic/
+android/core-parser/src/main/java/app/nightrecord/relics/
+android/core-parser/src/main/java/app/nightrecord/parser/Binary.kt
+android/core-parser/src/main/java/app/nightrecord/parser/Decrypt.kt
+android/core-parser/src/main/java/app/nightrecord/parser/HistoryParser.kt
+android/core-parser/src/main/java/app/nightrecord/parser/SaveParser.kt

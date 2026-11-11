@@ -36,6 +36,7 @@ body {
   flex-direction: column;
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   color: var(--text);
   font-family: var(--sans);
   background:
@@ -79,10 +80,13 @@ pre {
   top: 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 460px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 520px) minmax(0, 1fr);
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   padding: 16px clamp(18px, 4vw, 54px);
+  padding-top: calc(16px + env(safe-area-inset-top, 0px));
+  padding-left: calc(clamp(18px, 4vw, 54px) + env(safe-area-inset-left, 0px));
+  padding-right: calc(clamp(18px, 4vw, 54px) + env(safe-area-inset-right, 0px));
   border-bottom: 1px solid var(--line-soft);
   background: rgba(10, 10, 12, 0.72);
   backdrop-filter: blur(14px);
@@ -107,6 +111,11 @@ pre {
   width: 100%;
   gap: 8px;
   justify-self: center;
+}
+
+.topbar-right > .lang-switch {
+  flex-shrink: 0;
+  margin-right: 6px;
 }
 
 .player-search input {
@@ -1463,10 +1472,156 @@ main {
   gap: 16px 24px;
   flex-wrap: wrap;
   padding: 22px clamp(18px, 4vw, 54px);
+  padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  padding-left: calc(clamp(18px, 4vw, 54px) + env(safe-area-inset-left, 0px));
+  padding-right: calc(clamp(18px, 4vw, 54px) + env(safe-area-inset-right, 0px));
   border-top: 1px solid var(--line-soft);
   color: var(--muted);
   font-size: 11px;
   letter-spacing: 0.06em;
+}
+
+.install-hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  background: rgba(18, 18, 23, 0.72);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.install-hint strong {
+  color: var(--gold-soft);
+  font-weight: 600;
+}
+
+.install-hint-dismiss {
+  margin-left: auto;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.app-promo {
+  width: min(560px, 100%);
+  margin: 22px auto 0;
+  padding: 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: rgba(18, 18, 23, 0.82);
+  box-sizing: border-box;
+}
+
+.landing .app-promo {
+  margin-top: 24px;
+}
+
+.app-promo-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 12px;
+  background: rgba(10, 10, 12, 0.72);
+  border: 1px solid var(--line-soft);
+}
+
+.app-promo-tab {
+  appearance: none;
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  min-height: 42px;
+}
+
+.app-promo-tab.is-active {
+  color: var(--bg);
+  background: var(--gold);
+}
+
+.app-promo-panel {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.app-promo-cta {
+  width: 100%;
+  min-height: 46px;
+  box-sizing: border-box;
+}
+
+.app-promo-secondary {
+  display: inline-flex;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.app-promo-secondary:hover {
+  color: var(--gold-soft);
+}
+
+.app-promo-guide {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  background: rgba(10, 10, 12, 0.55);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.app-promo-guide strong {
+  color: var(--gold-soft);
+}
+
+
+.app-promo-note {
+  margin: 10px 2px 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: center;
+  word-break: keep-all;
+}
+
+@media (max-width: 560px) {
+  .app-promo {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .app-promo-tab {
+    font-size: 12px;
+    padding: 10px 8px;
+  }
+
+
+  .auth-page .app-promo,
+  .me-page .app-promo {
+    width: 100%;
+  }
 }
 
 .footer-main {
@@ -1928,6 +2083,7 @@ main {
 .record-id { display: block; color: #9b948a; font-size: 10px; margin-top: 4px; }
 .account-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .account-nav .btn { padding: 8px 12px; text-decoration: none; }
+.account-nav > .lang-switch + .btn { margin-left: 4px; }
 
 .btn-relic-nav {
   position: relative;

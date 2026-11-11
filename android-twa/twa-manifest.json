@@ -1,0 +1,51 @@
+{
+  "packageId": "app.nightrecord.twa",
+  "host": "nightrecord.app",
+  "name": "밤의 기록",
+  "launcherName": "밤의 기록",
+  "display": "standalone",
+  "themeColor": "#0A0A0C",
+  "themeColorDark": "#0A0A0C",
+  "navigationColor": "#0A0A0C",
+  "navigationColorDark": "#0A0A0C",
+  "navigationDividerColor": "#0A0A0C",
+  "navigationDividerColorDark": "#0A0A0C",
+  "backgroundColor": "#0A0A0C",
+  "enableNotifications": false,
+  "startUrl": "/",
+  "iconUrl": "https://nightrecord.app/assets/icons/icon-512.png",
+  "maskableIconUrl": "https://nightrecord.app/assets/icons/icon-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "/home/jcy1996/nightrecord/android-twa/android.keystore",
+    "alias": "nightrecord"
+  },
+  "appVersionName": "1.0.2",
+  "appVersionCode": 3,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://nightrecord.app/manifest.webmanifest",
+  "fallbackType": "webview",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": false,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://nightrecord.app/",
+  "minSdkVersion": 24,
+  "orientation": "default",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "protocolHandlers": [],
+  "fileHandlers": [],
+  "launchHandlerClientMode": "auto",
+  "displayOverride": [],
+  "permissions": {
+    "location": false,
+    "microphone": false,
+    "camera": false
+  }
+}

@@ -1,7 +1,9 @@
 import * as account from './account.js?v=15';
-import { initI18n, t } from './i18n.js?v=19';
+import { initI18n, t } from './i18n.js?v=20';
+import { initPwa } from './pwa.js?v=6';
 
 initI18n();
+initPwa();
 
 const page = document.body.dataset.auth;
 const form = document.querySelector('#accountForm');

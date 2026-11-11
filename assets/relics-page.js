@@ -1,8 +1,10 @@
 import * as account from './account.js?v=15';
 import { bindRelicControls, renderRelicRecommender, relicState } from './relic-ui.js?v=6';
-import { initI18n, t, applyDom } from './i18n.js?v=17';
+import { initI18n, t, applyDom } from './i18n.js?v=20';
+import { initPwa } from './pwa.js?v=6';
 
 initI18n();
+initPwa();
 
 window.addEventListener('nightrecord:locale', () => {
   applyDom(document);

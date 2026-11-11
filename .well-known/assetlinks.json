@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.nightrecord.twa",
+      "sha256_cert_fingerprints": [
+        "3B:B4:8E:B6:F0:48:01:D8:69:6E:FD:84:B5:82:D5:70:F2:9C:47:44:F7:86:B4:47:D6:4E:31:9A:47:BE:EC:3B"
+      ]
+    }
+  }
+]

@@ -2,11 +2,18 @@
 <html lang="ko" data-i18n-title-key="me.title">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>마이페이지 — 밤의 기록</title>
   <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="밤의 기록" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="assets/styles.css?v=23" />
+  <link rel="stylesheet" href="assets/styles.css?v=38" />
 </head>
 <body>
   <div class="grain"></div>
@@ -16,6 +23,7 @@
     </div>
     <div class="topbar-center" aria-hidden="true"></div>
     <nav class="account-nav topbar-right" aria-label="계정" data-i18n-aria="nav.account">
+      <div class="lang-switch" data-lang-switch></div>
       <a class="btn btn-ghost" href="./" data-i18n="nav.recordsPage">기록 페이지</a>
       <button id="signOut" class="btn btn-ghost" type="button" data-i18n="nav.logout">로그아웃</button>
     </nav>
@@ -23,6 +31,22 @@
   <main class="me-page">
     <p class="eyebrow">ACCOUNT</p>
     <h1 data-i18n="me.title">마이페이지</h1>
+    <aside id="appPromo" class="app-promo" hidden>
+      <div class="app-promo-toggle" role="tablist" aria-label="앱 설치 플랫폼">
+        <button type="button" class="app-promo-tab is-active" data-promo-tab="android" aria-selected="true">Android</button>
+        <button type="button" class="app-promo-tab" data-promo-tab="ios" aria-selected="false">iOS</button>
+      </div>
+      <div class="app-promo-panel" data-promo-panel="android">
+        <a class="btn btn-solid app-promo-cta" data-promo="store" href="#" target="_blank" rel="noopener noreferrer" data-i18n="landing.oneStore">원스토어에서 앱 받기</a>
+        <a class="btn btn-ghost app-promo-cta" data-promo="play" href="#" target="_blank" rel="noopener noreferrer" hidden data-i18n="landing.playStore">Google Play에서 받기</a>
+        <a class="app-promo-secondary" data-promo="apk" href="/downloads/nightrecord.apk" download="nightrecord.apk" data-i18n="landing.apk">APK 직접 설치</a>
+      </div>
+      <div class="app-promo-panel" data-promo-panel="ios" hidden>
+        <button type="button" class="btn btn-solid app-promo-cta" data-promo="ios-add" data-i18n="landing.install">홈 화면에 추가</button>
+        <p class="app-promo-guide" data-promo="ios-guide" hidden data-i18n-html="landing.installIos">iPhone·iPad에서는 Safari 공유 버튼 → <strong>홈 화면에 추가</strong>로 바로가기를 만듭니다.</p>
+      </div>
+      <p class="app-promo-note" data-i18n="promo.appNote">앱은 한국어만 지원합니다 · 웹에서 세이브 분석한 회원용</p>
+    </aside>
     <div class="me-tabs" role="tablist">
       <button class="btn btn-solid" id="tabRecords" type="button" data-i18n="me.records">내 기록</button>
       <button class="btn btn-ghost" id="tabSettings" type="button" data-i18n="me.settings">설정</button>
@@ -63,7 +87,6 @@
     <div class="footer-links">
       <a href="mailto:jcy19960721@gmail.com" data-i18n="footer.contact">문의</a>
       <a href="https://github.com/sponsors/jeongchanyoung-1234" target="_blank" rel="noopener noreferrer" data-i18n="footer.sponsor">개발자에게 커피 한 잔</a>
-      <div class="lang-switch" data-lang-switch></div>
     </div>
   </footer>
 
@@ -78,6 +101,6 @@
       <button class="btn btn-solid" value="cancel" type="submit" data-i18n="me.avatarClose">닫기</button>
     </form>
   </dialog>
-  <script type="module" src="assets/me.js?v=16"></script>
+  <script type="module" src="assets/me.js?v=18"></script>
 </body>
 </html>

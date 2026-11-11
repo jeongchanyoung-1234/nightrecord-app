@@ -2,13 +2,20 @@
 <html lang="ko" data-i18n-title-key="relics.metaTitle">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>유물 조합기 — 밤의 기록</title>
   <meta name="description" content="보유 유물로 Nightreign 직업·접시 조합을 추천합니다. 계정 주인만 사용할 수 있습니다." />
   <link rel="canonical" href="https://nightrecord.app/relics.html" />
   <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0a0a0c" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="밤의 기록" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="assets/styles.css?v=27" />
+  <link rel="stylesheet" href="assets/styles.css?v=34" />
 </head>
 <body>
   <div class="grain"></div>
@@ -21,6 +28,7 @@
     </div>
     <div class="topbar-center" aria-hidden="true"></div>
     <nav class="account-nav topbar-right" aria-label="계정" data-i18n-aria="nav.account">
+      <div class="lang-switch" data-lang-switch></div>
       <a class="btn btn-ghost" href="./" data-i18n="nav.records">전적</a>
       <a class="btn btn-ghost" id="myPageLink" href="me.html" hidden data-i18n="nav.mypage">마이페이지</a>
       <a class="btn btn-ghost" id="loginLink" href="login.html" data-i18n="nav.login">로그인</a>
@@ -58,7 +66,6 @@
     <div class="footer-links">
       <a href="mailto:jcy19960721@gmail.com" data-i18n="footer.contact">문의</a>
       <a href="https://github.com/sponsors/jeongchanyoung-1234" target="_blank" rel="noopener noreferrer" data-i18n="footer.sponsor">개발자에게 커피 한 잔</a>
-      <div class="lang-switch" data-lang-switch></div>
     </div>
   </footer>
 

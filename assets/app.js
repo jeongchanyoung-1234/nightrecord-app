@@ -4,9 +4,11 @@ import {
 } from './parser.js';
 import * as account from './account.js?v=15';
 import { avatarById } from './profile-avatars.js';
-import { initI18n, t, applyDom, getLocale } from './i18n.js?v=18';
+import { initI18n, t, applyDom, getLocale } from './i18n.js?v=20';
+import { initPwa, maybeShowAppPromoNotice } from './pwa.js?v=6';
 
 initI18n();
+initPwa();
 
 function loc() {
   return getLocale();
@@ -2187,6 +2189,7 @@ async function boot() {
     try {
       accountUser = await account.restoreSession();
       renderAccount();
+      maybeShowAppPromoNotice({ loggedIn: Boolean(accountUser), showNotice, t });
     } catch (error) {
       accountMessage(t('msg.loginRestoreFail', { error: error.message }));
     }

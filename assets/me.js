@@ -1,9 +1,11 @@
 import * as account from './account.js?v=15';
 import { PROFILE_AVATARS, avatarById } from './profile-avatars.js';
-import { initI18n, t, getLocale, applyDom } from './i18n.js';
+import { initI18n, t, getLocale, applyDom } from './i18n.js?v=20';
 import { jobLabel } from './parser.js';
+import { initPwa } from './pwa.js?v=6';
 
 initI18n();
+initPwa();
 
 window.addEventListener('nightrecord:locale', () => {
   applyDom(document);
