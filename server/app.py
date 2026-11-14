@@ -29,6 +29,9 @@ CODE_TTL = 60 * 10
 MAX_BODY = 1_500_000
 TAG_ALPHABET = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'
 LOCK = threading.Lock()
+# 비로그인 업로드 프로필의 소유자. '#'이 들어가 로그인 아이디로는 쓸 수 없음.
+GUEST_ID = '00000000-0000-0000-0000-000000000000'
+GUEST_LOGIN = '#guest'
 CONN = None
 
 class ApiError(Exception):
@@ -172,10 +175,17 @@ def connect(path=DB_PATH):
         conn.execute('alter table profiles add column peak_rating integer not null default 0')
     if 'peak_depth' not in profile_columns:
         conn.execute('alter table profiles add column peak_depth integer not null default 0')
+    ensure_guest(conn)
     ensure_admin(conn)
     prune_access_events(conn)
     conn.commit()
     return conn
+
+def ensure_guest(conn):
+    conn.execute(
+        'insert into users (id, email, password_hash, created_at) values (?, ?, null, ?) on conflict(id) do nothing',
+        (GUEST_ID, GUEST_LOGIN, now()),
+    )
 
 def ensure_admin(conn):
     username = normalize_login(os.environ.get('NIGHTRECORD_ADMIN_USERNAME', 'jcy1996'))
@@ -313,7 +323,7 @@ def record_access(handler, path, status, kind):
 def admin_stats(conn):
     current = now()
     day = 86400
-    users = conn.execute('select count(*) as n from users').fetchone()['n']
+    users = conn.execute('select count(*) as n from users where id != ?', (GUEST_ID,)).fetchone()['n']
     profiles = conn.execute('select count(*) as n from profiles').fetchone()['n']
     matches = conn.execute('select coalesce(sum(matches), 0) as n from profiles').fetchone()['n']
     wins = conn.execute('select coalesce(sum(wins), 0) as n from profiles').fetchone()['n']
@@ -385,7 +395,8 @@ def admin_stats(conn):
     recent_users = [
         {'email': row['email'], 'createdAt': row['created_at'], 'isAdmin': bool(row['is_admin'])}
         for row in conn.execute(
-            'select email, created_at, is_admin from users order by created_at desc limit 15'
+            'select email, created_at, is_admin from users where id != ? order by created_at desc limit 15',
+            (GUEST_ID,),
         ).fetchall()
     ]
     api_top = [
@@ -872,6 +883,9 @@ def peak_of(row):
     return {'rating': rating, 'depth': depth}
 
 def publish_profile(conn, user_id, profile_key, characters, records, deep_ratings=None, avatar=None):
+    # user_id가 None이면 비로그인 업로드. 세이브 내부 SteamID 해시(profile_key)로 프로필을 식별해 누적한다.
+    guest = user_id is None
+    owner_id = GUEST_ID if guest else user_id
     if not isinstance(characters, list) or len(characters) > 10:
         raise ApiError(400, '캐릭터 목록이 올바르지 않습니다.')
     if not isinstance(records, list) or len(records) > 100:
@@ -890,13 +904,20 @@ def publish_profile(conn, user_id, profile_key, characters, records, deep_rating
         try:
             conn.execute(
                 'insert into profiles (id, profile_key, owner_id, tag, characters, aliases, matches, wins, created_at, updated_at) values (?, ?, ?, ?, ?, ?, 0, 0, ?, ?)',
-                (profile_id, profile_key, user_id, tag, json.dumps(characters, ensure_ascii=False), '[]', now(), now()),
+                (profile_id, profile_key, owner_id, tag, json.dumps(characters, ensure_ascii=False), '[]', now(), now()),
             )
         except sqlite3.IntegrityError:
             raise ApiError(409, '이미 같은 태그의 프로필이 있습니다.')
         aliases = []
     else:
-        if row['owner_id'] != user_id:
+        if guest:
+            # 비로그인 업로드는 원정·이름·심도 점수만 누적하고, 계정이 꾸민 아바타는 건드리지 않는다.
+            if row['owner_id'] != GUEST_ID:
+                sanitized_avatar = None
+        elif row['owner_id'] == GUEST_ID:
+            # 비로그인으로 쌓인 프로필은 같은 세이브를 올린 첫 로그인 계정이 이어받는다.
+            conn.execute('update profiles set owner_id = ? where id = ?', (user_id, row['id']))
+        elif row['owner_id'] != user_id:
             raise ApiError(403, '다른 계정에 등록된 프로필입니다.')
         profile_id = row['id']
         aliases = json.loads(row['aliases'])
@@ -1425,11 +1446,12 @@ class Handler(BaseHTTPRequestHandler):
             added = merge_runs(CONN, 'expeditions', 'user_id', user['id'], body.get('records'))
             return {'added': added}
         if path == '/api/profiles/publish' and self.command == 'POST':
-            user = user_from_token(CONN, bearer(self))
+            has_token = self.headers.get('Authorization', '').startswith('Bearer ')
+            user = user_from_token(CONN, bearer(self)) if has_token else None
             body = json_body(self)
             return publish_profile(
                 CONN,
-                user['id'],
+                user['id'] if user else None,
                 body.get('profile_key', ''),
                 body.get('characters'),
                 body.get('records'),

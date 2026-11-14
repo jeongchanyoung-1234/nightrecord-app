@@ -37,3 +37,14 @@ cd android
 ```
 
 필요: Android SDK (compileSdk 36), JDK 17.
+
+## 릴리스 (Play / 원스토어)
+
+1. `android/keystore.properties`와 `android/keystore/nightrecord-upload.jks`가 있어야 합니다. (로컬 전용, git 제외)
+2. 빌드:
+   ```bash
+   cd android
+   ./gradlew :app:bundleRelease   # Play용 AAB
+   ./gradlew :app:assembleRelease # APK
+   ```
+3. Play Console 절차는 [PLAY_STORE.md](PLAY_STORE.md)를 따르세요.

@@ -100,6 +100,8 @@ android/build/
 android/app/build/
 android/core-parser/build/
 android/local.properties
+android/keystore.properties
+android/keystore/
 android/**/keystore/
 android/**/*.jks
 android/**/*.keystore

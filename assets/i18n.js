@@ -1,4 +1,4 @@
-import { LOCALES, LANGS } from './locales.js?v=22';
+import { LOCALES, LANGS } from './locales.js?v=24';
 
 const STORAGE_KEY = 'nightrecord.locale';
 const SUPPORTED = new Set(LANGS.map((entry) => entry.id));

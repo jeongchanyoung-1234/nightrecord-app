@@ -1,6 +1,6 @@
-import * as account from './account.js?v=15';
+import * as account from './account.js?v=16';
 import { bindRelicControls, renderRelicRecommender, relicState } from './relic-ui.js?v=6';
-import { initI18n, t, applyDom } from './i18n.js?v=20';
+import { initI18n, t, applyDom } from './i18n.js?v=21';
 import { initPwa } from './pwa.js?v=6';
 
 initI18n();

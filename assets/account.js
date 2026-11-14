@@ -297,7 +297,8 @@ export async function saveRecords(runs) {
 
 export async function publishProfile(profileKey, names, runs, deepRatings = [], avatar = undefined) {
   if (!configured) return null;
-  const token = await accessToken();
+  // 비로그인도 업로드 가능: 세이브의 SteamID 해시(profileKey)로 서버가 프로필을 식별해 누적
+  const token = session ? await accessToken() : undefined;
   const unique = mergeRecords([], runs).runs.map(slimRun);
   let added = 0;
   let last = null;

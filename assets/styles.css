@@ -401,6 +401,12 @@ main {
   font-size: 12px;
 }
 
+.privacy-line.data-use-line {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
 .dot {
   width: 6px;
   height: 6px;

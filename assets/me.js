@@ -1,6 +1,6 @@
-import * as account from './account.js?v=15';
+import * as account from './account.js?v=16';
 import { PROFILE_AVATARS, avatarById } from './profile-avatars.js';
-import { initI18n, t, getLocale, applyDom } from './i18n.js?v=20';
+import { initI18n, t, getLocale, applyDom } from './i18n.js?v=21';
 import { jobLabel } from './parser.js';
 import { initPwa } from './pwa.js?v=6';
 

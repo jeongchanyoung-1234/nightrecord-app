@@ -100,6 +100,26 @@ def test_archive_and_privacy(tmp_path):
     _, own = call(f'/api/expeditions?offset=0', token=session_a['access_token'], method='GET')
     _, other = call(f'/api/expeditions?offset=0', token=session_b['access_token'], method='GET')
     assert len(own) == 1 and other == []
+    # 비로그인 업로드: 세이브의 profile_key로 바로 누적
+    guest_key = 'b' * 64
+    status, g1 = call('/api/profiles/publish', {'profile_key': guest_key, 'characters': ['wanderer'], 'records': [record(i, 1_800_000_000_000 + i) for i in range(1, 11)]})
+    assert status == 200 and g1['added'] == 10 and g1['total'] == 10
+    status, g2 = call('/api/profiles/publish', {'profile_key': guest_key, 'characters': ['wanderer'], 'records': [record(i, 1_800_000_000_000 + i) for i in range(5, 16)]})
+    assert status == 200 and g2['added'] == 5 and g2['total'] == 15
+    status, detail = call('/api/profiles/detail', {'profile_tag': g2['saveId']})
+    assert status == 200 and len(detail['runs']) == 15
+    # 비로그인 업로드는 계정 소유 프로필에도 원정을 누적하지만 소유권은 바꾸지 않음
+    status, g3 = call('/api/profiles/publish', {'profile_key': key, 'characters': ['ashenone'], 'records': [record(500, 1_900_000_000_000)]})
+    assert status == 200 and g3['added'] == 1
+    _, mine_after = call('/api/me', token=session_a['access_token'], method='GET')
+    assert any(row['id'] == profile_id for row in mine_after['profiles'])
+    # 로그인한 계정이 같은 세이브를 올리면 비로그인 프로필을 이어받음
+    status, claimed = call('/api/profiles/publish', {'profile_key': guest_key, 'characters': ['wanderer'], 'records': [record(99, 1_800_000_009_999)]}, session_b['access_token'])
+    assert status == 200 and claimed['total'] == 16
+    _, mine_b = call('/api/me', token=session_b['access_token'], method='GET')
+    assert len(mine_b['profiles']) == 1 and mine_b['profiles'][0]['saveId'] == g2['saveId']
+    status, nope = call('/api/auth/login', {'username': server.GUEST_LOGIN, 'password': 'whatever-pass'})
+    assert status == 401
     with urllib.request.urlopen(f'http://127.0.0.1:{port}/') as response:
         assert '밤의 기록'.encode() in response.read()
     httpd.shutdown()

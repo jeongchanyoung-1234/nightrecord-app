@@ -2,9 +2,9 @@ import {
   parseSave, buildStats, JOB_NAMES, normalizeDeepRating,
   jobLabel, bossLabel, modeLabelFor, stageLabelFor, localizedLabel,
 } from './parser.js';
-import * as account from './account.js?v=15';
+import * as account from './account.js?v=16';
 import { avatarById } from './profile-avatars.js';
-import { initI18n, t, applyDom, getLocale } from './i18n.js?v=20';
+import { initI18n, t, applyDom, getLocale } from './i18n.js?v=21';
 import { initPwa, maybeShowAppPromoNotice } from './pwa.js?v=6';
 
 initI18n();
@@ -268,14 +268,6 @@ function showNotice(message, options = {}) {
     return;
   }
   window.alert(value);
-}
-
-function showGuestSignupNotice() {
-  showNotice(t('msg.guestOneShot'), {
-    title: t('msg.guestOneShotTitle'),
-    ctaHref: 'signup.html',
-    ctaLabel: t('msg.guestOneShotCta'),
-  });
 }
 
 function updateRelicsNav() {
@@ -804,21 +796,19 @@ async function applyParsedSave(parsed, fileName) {
     ...parsed.runs.map((run) => run.character),
   ]);
 
-  // 비로그인 / Steam 키 없음: 이번 파일만 단발 표시, 누적·서버 저장 없음
-  if (!accountUser || !identity.profileKey) {
+  // Steam 키 없음: 이번 파일만 단발 표시, 누적·서버 저장 없음.
+  // 비로그인이어도 Steam 키가 있으면 아래에서 서버 DB에 누적한다.
+  if (!identity.profileKey) {
     activeProfileKey = '';
     loadData(parsed.roster, parsed.runs, parsed.recentRuns, fileName, false, parsed.diagnostics, {
       cumulative: parsed.runs,
-      profile: identity.profileKey
-        ? { tag: account.tagFromKey(identity.profileKey), names: fileNames, updatedAt: null }
-        : null,
+      profile: null,
       scope: 'cumulative',
       relicSlots: parsed.relicSlots || [],
       deepRatings: slotDeepRatings,
       avatar: '',
     });
-    if (!identity.profileKey) showNotice(t('msg.noSteam'));
-    else showGuestSignupNotice();
+    showNotice(t('msg.noSteam'));
     return;
   }
 
@@ -885,7 +875,7 @@ async function applyParsedSave(parsed, fileName) {
 }
 
 async function publishCurrentProfile(options = {}) {
-  if (!account.configured || !accountUser || !activeProfileKey || isDemo || !cumulativeRuns.length) return;
+  if (!account.configured || !activeProfileKey || isDemo || !cumulativeRuns.length) return;
   if (syncBusy && !options.nested) return;
   const ownLock = !options.nested;
   if (ownLock) syncBusy = true;
